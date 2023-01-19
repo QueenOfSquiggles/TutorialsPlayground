@@ -1,0 +1,8 @@
+Marker3D
+Camera3D
+MeshInstance3D
+RigidBody3D
+Node3D
+Area3D
+VoxelGI
+AnimationPlayer

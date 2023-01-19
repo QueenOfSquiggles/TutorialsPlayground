@@ -1,0 +1,80 @@
+[gd_scene load_steps=13 format=3 uid="uid://nb7kiwevfh3l"]
+
+[ext_resource type="Script" path="res://DuckTyping/duck_typing_scene.gd" id="1_nl863"]
+[ext_resource type="PackedScene" uid="uid://cjij6wxota745" path="res://DuckTyping/Objects/wooden_elephant.tscn" id="2_kin4x"]
+[ext_resource type="Script" path="res://DuckTyping/bounce_pad.gd" id="3_waapn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2fd21"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_w4uwk"]
+sky_material = SubResource("ProceduralSkyMaterial_2fd21")
+
+[sub_resource type="Environment" id="Environment_woi8l"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_w4uwk")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7pwit"]
+albedo_color = Color(0.447059, 0.447059, 0.447059, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8estw"]
+material = SubResource("StandardMaterial3D_7pwit")
+size = Vector2(10, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_oojh5"]
+data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hejny"]
+points = PackedVector3Array(-1.5, -0.125, -1.5, -1.5, 0.125, -1.5, 1.5, -0.125, -1.5, -1.5, -0.125, 1.5, -1.5, 0.125, 1.5, 1.5, 0.125, -1.5, 1.5, -0.125, 1.5, 1.5, 0.125, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y70ll"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mnui4"]
+material = SubResource("StandardMaterial3D_y70ll")
+size = Vector3(3, 0.25, 3)
+
+[node name="DuckTypingScene" type="Node3D"]
+script = ExtResource("1_nl863")
+object = ExtResource("2_kin4x")
+drop_pos = NodePath("DropPosition")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.258823, -0.836517, 0.48296, -1.49013e-08, 0.499998, 0.866027, -0.965925, -0.224147, 0.129411, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_woi8l")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_8estw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_oojh5")
+
+[node name="BouncePad" type="Node3D" parent="."]
+script = ExtResource("3_waapn")
+
+[node name="Area3D" type="Area3D" parent="BouncePad"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BouncePad/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.292827, 0)
+shape = SubResource("ConvexPolygonShape3D_hejny")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BouncePad"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0928273, 0)
+mesh = SubResource("BoxMesh_mnui4")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 5, 4, 5)
+
+[node name="DropPosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+
+[connection signal="body_entered" from="BouncePad/Area3D" to="BouncePad" method="_on_area_3d_body_entered"]
