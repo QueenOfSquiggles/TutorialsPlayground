@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://covpcftpdcfpe"]
+
+[ext_resource type="Script" path="res://WebRequestMOTD/web_request_motd.gd" id="1_qth32"]
+
+[node name="WebRequestMOTD" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qth32")
+web_json_path = "https://queenofsquiggles.github.io/data/test.json"
+local_json_path = "res://WebRequestMOTD/data.json"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Current Message of the Day:"
+
+[node name="Label_MOTD" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "%MOTD%"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+download_file = "res://WebRequestMOTD/data.json"
+use_threads = true

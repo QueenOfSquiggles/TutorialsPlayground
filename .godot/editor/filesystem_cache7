@@ -1,5 +1,5 @@
 0b7126e0c6e86d3ec295a72f5aa6e0bd
-::res://::1674168559
+::res://::1674169414
 icon.svg::CompressedTexture2D::1208836113103957465::1673891242::1673891257::1::::<><>::
 ::res://AssetScale/::1673895199
 asset_scale_scene.tscn::PackedScene::1511754638023986246::1673895199::0::1::::<><>::uid://clq010v8bhsmy<>uid://x0ad11t8gp76
@@ -33,3 +33,7 @@ carved_wooden_elephant_rough_2k.jpg::CompressedTexture2D::3033337693330748893::1
 surface_plane_material.tres::StandardMaterial3D::1644203564924676429::1673893641::0::1::::<><>::
 ::res://ORM_Materials/hdri_studio_small_09/::1673892180
 studio_small_09_2k.exr::CompressedTexture2D::7722966065523986522::1673892122::1673892180::1::::<><>::
+::res://WebRequestMOTD/::1674169383
+data.json::JSON::-1::1674169163::0::1::::<><>::
+web_request_motd.gd::GDScript::-1::1674169368::0::1::::<>VBoxContainer<>::
+web_request_motd.tscn::PackedScene::5799751730286877430::1674169383::0::1::::<><>::res://WebRequestMOTD/web_request_motd.gd
